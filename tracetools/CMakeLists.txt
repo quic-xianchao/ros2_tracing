@@ -79,6 +79,10 @@ foreach(_header ${HEADERS})
 endforeach()
 
 add_library(${PROJECT_NAME} ${SOURCES})
+  set_target_properties(${PROJECT_NAME} PROPERTIES
+    VERSION ${PROJECT_VERSION}
+    SOVERSION 1
+  )
 
 if(TRACETOOLS_PERFETTO_ENABLED)
   target_link_libraries(${PROJECT_NAME} perfetto_lib dl)
@@ -109,6 +113,11 @@ if(TRACETOOLS_STATUS_CHECKING_TOOL)
   add_library(${PROJECT_NAME}_status
     src/status.c
   )
+  set_target_properties(${PROJECT_NAME}_status PROPERTIES
+    VERSION ${PROJECT_VERSION}
+    SOVERSION 1
+  )
+  
   target_link_libraries(${PROJECT_NAME}_status
     ${PROJECT_NAME}
   )
