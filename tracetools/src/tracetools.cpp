@@ -18,7 +18,7 @@
 #ifndef TRACETOOLS_DISABLED
 
 #ifdef TRACETOOLS_PERFETTO_ENABLED
-# include "tracetools/perfetto_trace.h"
+# include "tracetools/ros_trace.h"
 #endif
 
 bool ros_trace_compile_status()
@@ -43,10 +43,10 @@ void TRACEPOINT(
   const void * context_handle)
 {
 #ifdef TRACETOOLS_PERFETTO_ENABLED
-  TRACE_EVENT(
-    "ros2",
-    "rcl_init",
-    "context_handle", context_handle);
+  ROS_TRACE_ENABLE();
+  ROS_TRACE_MESSAGE_F(
+    "ros2 rcl_init context_handle: %p",
+    context_handle);
 #endif
 }
 
@@ -58,13 +58,13 @@ void TRACEPOINT(
   const char * node_namespace)
 {
 #ifdef TRACETOOLS_PERFETTO_ENABLED
-  TRACE_EVENT(
-    "ros2",
-    "rcl_node_init",
-    "node_handle", node_handle,
-    "rmw_handle", rmw_handle,
-    "node_name", node_name,
-    "node_namespace", node_namespace);
+  ROS_TRACE_ENABLE();
+  ROS_TRACE_MESSAGE_F(
+    "ros2 rcl_node_init node_handle: %p, rmw_handle: %p, node_name: %s, node_namespace: %s",
+    node_handle,
+    rmw_handle,
+    node_name,
+    node_namespace);
 #endif
 }
 
@@ -74,11 +74,11 @@ void TRACEPOINT(
   const uint8_t * gid)
 {
 #ifdef TRACETOOLS_PERFETTO_ENABLED
-  TRACE_EVENT(
-    "ros2",
-    "rmw_publisher_init",
-    "rmw_publisher_handle", rmw_publisher_handle,
-    "gid", gid);
+  ROS_TRACE_ENABLE();
+  ROS_TRACE_MESSAGE_F(
+    "ros2 rmw_publisher_init rmw_publisher_handle: %p, gid: %" PRIu8,
+    rmw_publisher_handle,
+    gid);
 #endif
 }
 
@@ -91,14 +91,14 @@ void TRACEPOINT(
   const size_t queue_depth)
 {
 #ifdef TRACETOOLS_PERFETTO_ENABLED
-  TRACE_EVENT(
-    "ros2",
-    "rcl_publisher_init",
-    "publisher_handle", publisher_handle,
-    "node_handle", node_handle,
-    "rmw_publisher_handle", rmw_publisher_handle,
-    "topic_name", topic_name,
-    "queue_depth", queue_depth);
+  ROS_TRACE_ENABLE();
+  ROS_TRACE_MESSAGE_F(
+    "ros2 rcl_publisher_init publisher_handle: %p, node_handle: %p,  rmw_publisher_handle: %p, topic_name: %s, queue_depth: %zu", 
+    publisher_handle,
+    node_handle,
+    rmw_publisher_handle,
+    topic_name,
+    queue_depth);
 #endif
 }
 
@@ -108,11 +108,11 @@ void TRACEPOINT(
   const void * message)
 {
 #ifdef TRACETOOLS_PERFETTO_ENABLED
-  TRACE_EVENT(
-    "ros2",
-    "rclcpp_publish",
-    "publisher_handle", publisher_handle,
-    "message", message);
+  ROS_TRACE_ENABLE();
+  ROS_TRACE_MESSAGE_F(
+    "ros2 rclcpp_publish publisher_handle: %p, message: %p",
+    publisher_handle,
+    message);
 #endif
 }
 
@@ -122,11 +122,11 @@ void TRACEPOINT(
   const void * message)
 {
 #ifdef TRACETOOLS_PERFETTO_ENABLED
-  TRACE_EVENT(
-    "ros2",
-    "rcl_publish",
-    "publisher_handle", publisher_handle,
-    "message", message);
+  ROS_TRACE_ENABLE();
+  ROS_TRACE_MESSAGE_F(
+    "ros2 rcl_publish publisher_handle: %p, message: %p",
+    publisher_handle,
+    message);
 #endif
 }
 
@@ -135,10 +135,10 @@ void TRACEPOINT(
   const void * message)
 {
 #ifdef TRACETOOLS_PERFETTO_ENABLED
-  TRACE_EVENT(
-    "ros2",
-    "rmw_publish",
-    "message", message);
+  ROS_TRACE_ENABLE();
+  ROS_TRACE_MESSAGE_F(
+    "ros2 rmw_publish message: %p",
+    message);
 #endif
 }
 
@@ -148,11 +148,11 @@ void TRACEPOINT(
   const uint8_t * gid)
 {
 #ifdef TRACETOOLS_PERFETTO_ENABLED
-  TRACE_EVENT(
-    "ros2",
-    "rmw_subscription_init",
-    "rmw_subscription_handle", rmw_subscription_handle,
-    "gid", gid);
+  ROS_TRACE_ENABLE();
+  ROS_TRACE_MESSAGE_F(
+    "ros2 rmw_subscription_init rmw_subscription_handle: %p, gid: %" PRIu8,
+    rmw_subscription_handle,
+    gid);
 #endif
 }
 
@@ -165,14 +165,14 @@ void TRACEPOINT(
   const size_t queue_depth)
 {
 #ifdef TRACETOOLS_PERFETTO_ENABLED
-  TRACE_EVENT(
-    "ros2",
-    "rcl_subscription_init",
-    "subscription_handle", subscription_handle,
-    "node_handle", node_handle,
-    "rmw_subscription_handle", rmw_subscription_handle,
-    "topic_name", topic_name,
-    "queue_depth", queue_depth);
+  ROS_TRACE_ENABLE();
+  ROS_TRACE_MESSAGE_F(
+    "ros2 rcl_subscription_init subscription_handle: %p, node_handle: %p, rmw_subscription_handle: %p, topic_name: %s, queue_depth: %zu",
+    subscription_handle,
+    node_handle,
+    rmw_subscription_handle,
+    topic_name,
+    queue_depth);
 #endif
 }
 
@@ -182,11 +182,11 @@ void TRACEPOINT(
   const void * subscription)
 {
 #ifdef TRACETOOLS_PERFETTO_ENABLED
-  TRACE_EVENT(
-    "ros2",
-    "rclcpp_subscription_init",
-    "subscription_handle", subscription_handle,
-    "subscription", subscription);
+  ROS_TRACE_ENABLE();
+  ROS_TRACE_MESSAGE_F(
+    "ros2 rclcpp_subscription_init subscription_handle: %p, subscription: %p", 
+    subscription_handle,
+    subscription);
 #endif
 }
 
@@ -196,11 +196,11 @@ void TRACEPOINT(
   const void * callback)
 {
 #ifdef TRACETOOLS_PERFETTO_ENABLED
-  TRACE_EVENT(
-    "ros2",
-    "rclcpp_subscription_callback_added",
-    "subscription", subscription,
-    "callback", callback);
+  ROS_TRACE_ENABLE();
+  ROS_TRACE_MESSAGE_F(
+    "ros2 rclcpp_subscription_callback_added subscription: %p, callback: %p",
+    subscription,
+    callback);
 #endif
 }
 
@@ -212,13 +212,13 @@ void TRACEPOINT(
   const bool taken)
 {
 #ifdef TRACETOOLS_PERFETTO_ENABLED
-  TRACE_EVENT(
-    "ros2",
-    "rmw_take",
-    "rmw_subscription_handle", rmw_subscription_handle,
-    "message", message,
-    "source_timestamp", source_timestamp,
-    "taken", taken);
+  ROS_TRACE_ENABLE();
+  ROS_TRACE_MESSAGE_F(
+    "ros2 rmw_take rmw_subscription_handle: %p, message: %p, source_timestamp: %ld, taken: %d",
+    rmw_subscription_handle,
+    message,
+    source_timestamp,
+    taken);
 #endif
 }
 
@@ -227,10 +227,10 @@ void TRACEPOINT(
   const void * message)
 {
 #ifdef TRACETOOLS_PERFETTO_ENABLED
-  TRACE_EVENT(
-    "ros2",
-    "rcl_take",
-    "message", message);
+  ROS_TRACE_ENABLE();
+  ROS_TRACE_MESSAGE_F(
+    "ros2 rcl_take message: %p",
+    message);
 #endif
 }
 
@@ -239,10 +239,10 @@ void TRACEPOINT(
   const void * message)
 {
 #ifdef TRACETOOLS_PERFETTO_ENABLED
-  TRACE_EVENT(
-    "ros2",
-    "rclcpp_take",
-    "message", message);
+  ROS_TRACE_ENABLE();
+  ROS_TRACE_MESSAGE_F(
+    "ros2 rclcpp_take message: %p",
+    message);
 #endif
 }
 
@@ -254,13 +254,13 @@ void TRACEPOINT(
   const char * service_name)
 {
 #ifdef TRACETOOLS_PERFETTO_ENABLED
-  TRACE_EVENT(
-    "ros2",
-    "rcl_service_init",
-    "service_handle", service_handle,
-    "node_handle", node_handle,
-    "rmw_service_handle", rmw_service_handle,
-    "service_name", service_name);
+  ROS_TRACE_ENABLE();
+  ROS_TRACE_MESSAGE_F(
+    "ros2 rcl_service_init service_handle: %p, node_handle: %p, rmw_service_handle: %p, service_name: %s",
+    service_handle,
+    node_handle,
+    rmw_service_handle,
+    service_name);
 #endif
 }
 
@@ -270,11 +270,11 @@ void TRACEPOINT(
   const void * callback)
 {
 #ifdef TRACETOOLS_PERFETTO_ENABLED
-  TRACE_EVENT(
-    "ros2",
-    "rclcpp_service_callback_added",
-    "service_handle", service_handle,
-    "callback", callback);
+  ROS_TRACE_ENABLE();
+  ROS_TRACE_MESSAGE_F(
+    "ros2 rclcpp_service_callback_added service_handle: %p, callback: %p",
+    service_handle,
+    callback);
 #endif
 }
 
@@ -286,13 +286,13 @@ void TRACEPOINT(
   const char * service_name)
 {
 #ifdef TRACETOOLS_PERFETTO_ENABLED
-  TRACE_EVENT(
-    "ros2",
-    "rcl_client_init",
-    "client_handle", client_handle,
-    "node_handle", node_handle,
-    "rmw_client_handle", rmw_client_handle,
-    "service_name", service_name);
+  ROS_TRACE_ENABLE();
+  ROS_TRACE_MESSAGE_F(
+    "ros2 rcl_client_init client_handle: %p, node_handle: %p, rmw_client_handle: %p, service_name: %s",
+    client_handle,
+    node_handle,
+    rmw_client_handle,
+    service_name);
 #endif
 }
 
@@ -302,11 +302,11 @@ void TRACEPOINT(
   int64_t period)
 {
 #ifdef TRACETOOLS_PERFETTO_ENABLED
-  TRACE_EVENT(
-    "ros2",
-    "rcl_timer_init",
-    "timer_handle", timer_handle,
-    "period", period);
+  ROS_TRACE_ENABLE();
+  ROS_TRACE_MESSAGE_F(
+    "ros2 rcl_timer_init timer_handle: %p, period: %ld",
+    timer_handle,
+    period);
 #endif
 }
 
@@ -316,11 +316,11 @@ void TRACEPOINT(
   const void * callback)
 {
 #ifdef TRACETOOLS_PERFETTO_ENABLED
-  TRACE_EVENT(
-    "ros2",
-    "rclcpp_timer_callback_added",
-    "timer_handle", timer_handle,
-    "callback", callback);
+  ROS_TRACE_ENABLE();
+  ROS_TRACE_MESSAGE_F(
+    "ros2 rclcpp_timer_callback_added timer_handle: %p, callback: %p",
+    timer_handle,
+    callback);
 #endif
 }
 
@@ -330,11 +330,11 @@ void TRACEPOINT(
   const void * node_handle)
 {
 #ifdef TRACETOOLS_PERFETTO_ENABLED
-  TRACE_EVENT(
-    "ros2",
-    "rclcpp_timer_link_node",
-    "timer_handle", timer_handle,
-    "node_handle", node_handle);
+  ROS_TRACE_ENABLE();
+  ROS_TRACE_MESSAGE_F(
+    "ros2 rclcpp_timer_link_node timer_handle: %p, node_handle: %p",
+    timer_handle,
+    node_handle);
 #endif
 }
 
@@ -344,11 +344,11 @@ void TRACEPOINT(
   const char * function_symbol)
 {
 #ifdef TRACETOOLS_PERFETTO_ENABLED
-  TRACE_EVENT(
-    "ros2",
-    "rclcpp_callback_register",
-    "callback", callback,
-    "function_symbol", function_symbol);
+  ROS_TRACE_ENABLE();
+  ROS_TRACE_MESSAGE_F(
+    "ros2 rclcpp_callback_register callback: %p, function_symbol: %s",
+    callback,
+    function_symbol);
 #endif
 }
 
@@ -358,11 +358,12 @@ void TRACEPOINT(
   const bool is_intra_process)
 {
 #ifdef TRACETOOLS_PERFETTO_ENABLED
-  TRACE_EVENT(
-    "ros2",
-    "callback_start",
-    "callback", callback,
-    "is_intra_process", is_intra_process);
+  ROS_TRACE_ENABLE();
+  ROS_TRACE_ASYNC_BEGIN_F(
+    0,
+    "ros2 callback_start callback: %p, is_intra_process: %d",
+    callback,
+    is_intra_process);
 #endif
 }
 
@@ -371,10 +372,11 @@ void TRACEPOINT(
   const void * callback)
 {
 #ifdef TRACETOOLS_PERFETTO_ENABLED
-  TRACE_EVENT(
-    "ros2",
-    "callback_end",
-    "callback", callback);
+  ROS_TRACE_ENABLE();
+  ROS_TRACE_ASYNC_END_F(
+    0,
+    "ros2 callback_end callback: %p",
+    callback);
 #endif
 }
 
@@ -384,11 +386,11 @@ void TRACEPOINT(
   const void * state_machine)
 {
 #ifdef TRACETOOLS_PERFETTO_ENABLED
-  TRACE_EVENT(
-    "ros2",
-    "rcl_lifecycle_state_machine_init",
-    "node_handle", node_handle,
-    "state_machine", state_machine);
+  ROS_TRACE_ENABLE();
+  ROS_TRACE_MESSAGE_F(
+    "ros2 rcl_lifecycle_state_machine_init node_handle: %p, state_machine: %p",
+    node_handle,
+    state_machine);
 #endif
 }
 
@@ -399,12 +401,12 @@ void TRACEPOINT(
   const char * goal_label)
 {
 #ifdef TRACETOOLS_PERFETTO_ENABLED
-  TRACE_EVENT(
-    "ros2",
-    "rcl_lifecycle_transition",
-    "state_machine", state_machine,
-    "start_label", start_label,
-    "goal_label", goal_label);
+  ROS_TRACE_ENABLE();
+  ROS_TRACE_MESSAGE_F(
+    "ros2 rcl_lifecycle_transition state_machine: %p, start_label: %s, goal_label: %s",
+    state_machine,
+    start_label,
+    goal_label);
 #endif
 }
 
@@ -412,9 +414,9 @@ void TRACEPOINT(
   rclcpp_executor_get_next_ready)
 {
 #ifdef TRACETOOLS_PERFETTO_ENABLED
-  TRACE_EVENT(
-    "ros2",
-    "rclcpp_executor_get_next_ready");
+  ROS_TRACE_ENABLE();
+  ROS_TRACE_MESSAGE_F(
+    "ros2 rclcpp_executor_get_next_ready");
 #endif
 }
 
@@ -423,10 +425,10 @@ void TRACEPOINT(
   const int64_t timeout)
 {
 #ifdef TRACETOOLS_PERFETTO_ENABLED
-  TRACE_EVENT(
-    "ros2",
-    "rclcpp_executor_wait_for_work",
-    "timeout", timeout);
+  ROS_TRACE_ENABLE();
+  ROS_TRACE_MESSAGE_F(
+    "ros2 rclcpp_executor_wait_for_work timeout: %ld",
+    timeout);
 #endif
 }
 
@@ -435,10 +437,10 @@ void TRACEPOINT(
   const void * handle)
 {
 #ifdef TRACETOOLS_PERFETTO_ENABLED
-  TRACE_EVENT(
-    "ros2",
-    "rclcpp_executor_execute",
-    "handle", handle);
+  ROS_TRACE_ENABLE();
+  ROS_TRACE_MESSAGE_F(
+    "ros2 rclcpp_executor_execute handle: %p",
+    handle);
 #endif
 }
 

@@ -8,7 +8,7 @@ endif()
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -pthread")
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-  add_compile_options(-Wall -Wextra -Wpedantic -fPIC -O2)
+  add_compile_options(-Wall -Wextra -Wpedantic -fPIC -O2 -ldl)
 elseif(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
   add_compile_options(/W4)
 endif()
@@ -49,25 +49,15 @@ include_directories(
 set(SOURCES
   src/tracetools.cpp
   src/utils.cpp
+  src/ros_trace.cpp
+  src/trace_utils.cpp
 )
+
 set(HEADERS
   include/${PROJECT_NAME}/tracetools.h
   include/${PROJECT_NAME}/utils.hpp
   include/${PROJECT_NAME}/visibility_control.hpp
 )
-
-if(TRACETOOLS_PERFETTO_ENABLED)
-  # We only need these if we're using perfetto
-  list(APPEND HEADERS
-    include/${PROJECT_NAME}/perfetto_trace.h
-    include/perfetto_sdk/perfetto.h
-  )
-  add_library(perfetto_lib SHARED include/perfetto_sdk/perfetto.cc)
-  set_target_properties(perfetto_lib PROPERTIES
-    VERSION ${PROJECT_VERSION}
-    SOVERSION 1
-  )
-endif()
 
 # Copy select headers to the actual include/ directory that we will use and export
 foreach(_header ${HEADERS})
@@ -84,17 +74,6 @@ add_library(${PROJECT_NAME} ${SOURCES})
     SOVERSION 1
   )
 
-if(TRACETOOLS_PERFETTO_ENABLED)
-  target_link_libraries(${PROJECT_NAME} perfetto_lib dl)
-  if(NOT TRACETOOLS_NO_RDYNAMIC)
-    target_link_libraries(${PROJECT_NAME} "-rdynamic")
-  endif()
-
-  install(
-    TARGETS perfetto_lib
-    EXPORT ${PROJECT_NAME}_export
-  )
-endif()
 if(WIN32)
   # Causes the visibility macros to use dllexport rather than dllimport
   # which is appropriate when building the dll but not consuming it.

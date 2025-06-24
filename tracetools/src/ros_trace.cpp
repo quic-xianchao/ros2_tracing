@@ -1,4 +1,4 @@
-// Copyright 2023 
+// Copyright 2025 qualcomm Technologies, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -11,14 +11,9 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-#undef PERFETTO_TRACE_H_
-#ifndef PERFETTO_TRACE_H_
-#define PERFETTO_TRACE_H_
 
-#undef TRACEPOINT_INCLUDE
-#define TRACEPOINT_INCLUDE "tracetools/perfetto_trace.h"
+#include <iostream>
+#include <mutex>
+#include <thread>
+#include "tracetools/trace_utils.h"
 
-#include <stdint.h>
-#include <stdbool.h>
-
-#endif  //PERFETTO_TRACE_H_
